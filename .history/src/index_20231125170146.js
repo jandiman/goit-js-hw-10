@@ -1,5 +1,3 @@
-import SlimSelect from 'slim-select';
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { fetchBreeds, fetchCatsByBreeds } from './cat-api';
 
 ////////////////////////////////////////////////////////////
@@ -40,7 +38,7 @@ function createMarkup(event) {
 
   const breedId = event.target.value;
 
-  fetchCatsByBreeds(breedId)
+  fetchCatByBreed(breedId)
     .then(data => {
       loaderEl.classList.replace('loader', 'is-hidden');
       breedSelectEl.classList.remove('is-hidden');
@@ -66,6 +64,8 @@ breedSelectEl.addEventListener('change', createMarkup);
 ////////////////////////////////////////////////////////////
 
 function onError() {
+  // Show error Message
   errorEl.classList.remove('is-hidden');
+  //   Hide select element
   breedSelectEl.classList.add('is-hidden');
 }

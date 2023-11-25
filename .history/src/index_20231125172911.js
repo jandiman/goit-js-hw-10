@@ -4,7 +4,7 @@ import { fetchBreeds, fetchCatsByBreeds } from './cat-api';
 
 ////////////////////////////////////////////////////////////
 
-const breedSelectEl = document.querySelector('.breed-select');
+// const breedSelectEl = document.querySelector('.breed-select');
 const catInfoEl = document.querySelector('.cat-info');
 const loaderEl = document.querySelector('.loader');
 const errorEl = document.querySelector('.error');
@@ -65,7 +65,7 @@ breedSelectEl.addEventListener('change', createMarkup);
 
 ////////////////////////////////////////////////////////////
 
-function onError() {
-  errorEl.classList.remove('is-hidden');
-  breedSelectEl.classList.add('is-hidden');
+function onError(error) {
+  Notiflix.Notify.Failure(`Oops! Something went wrong: ${error.message}`);
+  breedSelectEl.slimSelect.set('destroy'); // If SlimSelect doesn't automatically hide, you can destroy it manually.
 }

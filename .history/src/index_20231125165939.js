@@ -1,6 +1,4 @@
-import SlimSelect from 'slim-select';
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import { fetchBreeds, fetchCatsByBreeds } from './cat-api';
+import { fetchBreeds, fetchCatByBreeds } from './cat-api';
 
 ////////////////////////////////////////////////////////////
 
@@ -23,7 +21,7 @@ function chooseBreed(data) {
       });
 
       breedSelectEl.insertAdjacentHTML('beforeend', optionsMarkup);
-      breedSelectEl.classList.remove('is-hidden');
+      breedSelectEl.classList.remove('is-hidden'); // Show select element after options are added
     })
     .catch(onError);
 }
@@ -33,14 +31,18 @@ chooseBreed();
 ////////////////////////////////////////////////////////////
 
 function createMarkup(event) {
+  // Show loader while loading
   loaderEl.classList.replace('is-hidden', 'loader');
-
+  // Hide select element and cat info markup while loading
   breedSelectEl.classList.add('is-hidden');
   catInfoEl.classList.add('is-hidden');
 
   const breedId = event.target.value;
+  //   get the option value using event.target.value
+  //   console.log(event.target);
+  //   console.log(event.target.value);
 
-  fetchCatsByBreeds(breedId)
+  fetchCatByBreed(breedId)
     .then(data => {
       loaderEl.classList.replace('loader', 'is-hidden');
       breedSelectEl.classList.remove('is-hidden');
@@ -66,6 +68,8 @@ breedSelectEl.addEventListener('change', createMarkup);
 ////////////////////////////////////////////////////////////
 
 function onError() {
+  // Show error Message
   errorEl.classList.remove('is-hidden');
+  //   Hide select element
   breedSelectEl.classList.add('is-hidden');
 }
